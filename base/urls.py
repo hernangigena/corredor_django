@@ -5,4 +5,5 @@ from django.conf.urls import url, patterns
 
 urlpatterns = patterns('base.views',
     url(r'^$', 'home', name='home'),
+    url(r'^generator$', 'code_generator', name='generator'),
 )
