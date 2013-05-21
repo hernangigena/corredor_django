@@ -43,7 +43,7 @@ function initialize() {
         markerChanged();
     });
 
-    $("#search").click(function(){
+    $("#search-form").submit(function(){
         var address = $('#address').val();
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -52,6 +52,7 @@ function initialize() {
             } else {
             }
         });
+        return false;
     });
 
     markerChanged();
