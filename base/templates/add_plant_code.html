@@ -1,0 +1,19 @@
+{% extends "_layouts/base.html" %}
+
+{% block page_title %}Your Site - Home{% endblock %}
+{% block page_class %}home-page{% endblock %}
+{% block content %}
+    <style type="text/css">
+        #search-input{
+            padding: 11px 19px;
+            font-size: 17.5px;
+        }
+    </style>
+
+    <form class="form-inline search-form" method="post">
+        {% csrf_token %}
+        <input class="input-xxlarge" id="search-input" name="code" type="text">
+        <button class="btn btn-large btn-inverse" id="artist_submit" type="submit">Agregar</button>
+    </form>
+
+{% endblock %}

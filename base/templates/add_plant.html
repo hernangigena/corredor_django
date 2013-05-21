@@ -1,0 +1,20 @@
+{% extends "_layouts/base.html" %}
+
+{% block page_title %}Your Site - Home{% endblock %}
+{% block page_class %}home-page{% endblock %}
+{% block content %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkiu3Y17pKboVcGFC6Bez9QozcY9ebxpQ&sensor=false"></script>
+    <script src="{{ STATIC_URL }}js/add_plant.js"></script>
+    <div class="row"><div class="well">
+    <div id="map-canvas"></div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.code.as_hidden }}
+        {{ form.lat.as_hidden }}
+        {{ form.lng.as_hidden }}
+        <input type="submit" value="Submit"/>
+    </form>
+
+    </div></div>
+
+{% endblock %}

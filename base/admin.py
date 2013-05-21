@@ -1,5 +1,5 @@
 from django.contrib import admin
-from base.models import Code
+from base.models import Code, Plant
 from django import forms
 from datetime import datetime
 
@@ -86,3 +86,4 @@ class CodeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Code, CodeAdmin)
+admin.site.register(Plant)
