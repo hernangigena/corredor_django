@@ -2,6 +2,24 @@
 from django.db import models
 
 
+class UrlQRCode(models.Model):
+    url = models.URLField()
+    qr_image = models.ImageField(
+        upload_to="qr_codes/url/",
+        height_field="qr_image_height",
+        width_field="qr_image_width",
+        null=True,
+        blank=True,
+        editable=False
+    )
+    qr_image_height = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    qr_image_width = models.PositiveIntegerField(null=True, blank=True, editable=False)
+
+    def qr_code(self):
+        return '%s' % self.qr_image.url
+    qr_code.allow_tags = True
+
+
 class Code(models.Model):
 
     def __unicode__(self):
@@ -11,7 +29,7 @@ class Code(models.Model):
     printed = models.BooleanField()
     created_date = models.DateTimeField(auto_now_add=True)
     printed_date = models.DateTimeField(null=True)
-
+    qr_code = models.ForeignKey('UrlQRCode', null=True)
 
 class Plant(models.Model):
     code = models.OneToOneField(Code)
