@@ -2,29 +2,41 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
- <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
 <title>My Title</title>
         <style type="text/css">
               @page {
                 size: {{ pagesize }};
                 margin: 1cm;
               }
-              div.code{
-                width:20%;
+               div.code{
+                width:50%;
                 float:left;
+                border: 1px dotted black;
+                }
+              .code h1,h2,p{
+                width:20%;
+                border: 0px;
               }
+
         </style>
 </head>    
 <body>
-    <div style="width: 100%">
-    {% for code in codes %}
-    <div class="code">
-      <h1>Corredor Biologico</h1>
-      <h2>www.corredorbiologico.com.ar:</h2>
-      <p>codigo: {{ code.code }}</p>
-    </div>
-    <hr/>
-    {% endfor %}
-    </div>
+  <table style="border: 2px dashed black" cellpadding="10" cellspacing="10" width="600">
+    <tr>
+      {% for code in codes %}
+      <td align="left" valign="top" width="200">
+        <h1 style="border:0px">Corredor Biologico</h1>
+        <h2>www.corredorbiologico.com.ar</h2>
+        <p>Código: {{ code.code }}</p>
+        <img height="{{code.qr_code.qr_image_height}}" width="{{code.qr_code.qr_image_width}}" src="{{code.qr_code.qr_image}}"/>
+      </td>
+      {% if forloop.counter|divisibleby:"3" %}
+      </tr>
+      <tr>
+      {% endif %}
+      {% endfor %}
+    </tr>
+  </table>
+
 </body>
 </html>
