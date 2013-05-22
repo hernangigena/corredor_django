@@ -11,3 +11,7 @@
 #map-canvas {
   height:500px;
 }
+
+.input-append .add-on, .input-append .btn, .input-append .btn-group {
+  line-height: 27px;
+}

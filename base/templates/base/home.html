@@ -2,6 +2,10 @@
 {% block page_title %}Your Site - Home{% endblock %}
 {% block page_class %}home-page{% endblock %}
 {% block content %}
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkiu3Y17pKboVcGFC6Bez9QozcY9ebxpQ&sensor=false"></script>
+    <script src="{{ STATIC_URL }}js/home.js"></script>
+        <div id="map-canvas"></div>
         <div class="container">
 
             <!-- Main hero unit for a primary marketing message or call to action -->
@@ -11,4 +15,9 @@
                 <p><a href="{% url 'add_plant_code' %}" class="btn btn-primary btn-large">Agrega tu planta!</a></p>
             </div>
         </div>
+
+    <script type="text/javascript">
+        var plants = {{ plants | safe }}
+        console.log(plants);
+    </script>
 {% endblock %}

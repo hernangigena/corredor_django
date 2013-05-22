@@ -3,11 +3,13 @@ from django.forms.models import ModelForm
 
 from django.shortcuts import render, redirect, get_object_or_404
 from base.models import Code, Plant
-
+import json
 
 def home(request):
     """ Default view for the root """
-    return render(request, 'base/home.html')
+    plants = Plant.objects.all()
+    plant_dict = [{"lat": str(plant.lat), "lng": str(plant.lng)} for plant in plants]
+    return render(request, 'base/home.html', {"plants": json.dumps(plant_dict)})
 
 
 def code_generator(request):
