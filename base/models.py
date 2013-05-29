@@ -1,5 +1,6 @@
 """ Basic models, such as user profile """
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class UrlQRCode(models.Model):
@@ -31,8 +32,10 @@ class Code(models.Model):
     printed_date = models.DateTimeField(null=True)
     qr_code = models.ForeignKey('UrlQRCode', null=True)
 
+
 class Plant(models.Model):
     code = models.OneToOneField(Code)
+    user = models.OneToOneField(User)
     lat = models.DecimalField(max_digits=20, decimal_places=17)
     lng = models.DecimalField(max_digits=20, decimal_places=17)
 

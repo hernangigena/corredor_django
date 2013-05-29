@@ -1,85 +1,276 @@
 {% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block page_title %}{{ _("Your Site") }}{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Olas Navigator">
 
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+    {% compress css %}
+	<link href="{{ STATIC_URL }}assets/css/bootstrap.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet">
+    {% block css %}{% endblock %}
+    {% endcompress %}
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=450741525018175";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+		
+		<!-- header -->
+		<div id="header" class="navbar">
+			<div class="navbar-inner">
+				<!-- company or app name -->
+				<a class="brand hidden-phone" href="index.html">Corredor Biologico</a>
+				
+				<!-- nav icons -->
+				<ul class="nav">
+				
+					<li class="visible-phone">
+						<a href="#"><i class="icon-large icon-search"></i></a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<i class="icon-large icon-globe"></i>
+						</a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<i class="icon-large icon-envelope"></i>
+						</a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<i class="icon-large icon-cog"></i>
+						</a>
+					</li>
+					
+				</ul>
+				
+				<ul class="nav pull-right">
+					
+					<!-- dropdown user account -->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-large icon-user"></i>
+						</a>
+						
+					    {% if user.is_authenticated %}
+						<ul class="dropdown-menu dropdown-user-account">
+                            <li class="account-img-container">
+								<img class="thumb account-img" src="{{ STATIC_URL }}images/100/07.png" />
+							</li>
+							<li class="account-info">
+                                <h3>{{ info.first_name }} {{ info.last_name }}</h3>
+                                <p>{{ info.location.name }}</p>
+							</li>
+							
+							<li class="account-footer">
+								<div class="row-fluid">
+									<div class="span4 align-right">
+										<a class="btn btn-small btn-danger btn-flat" href="{% url 'logout' %}">Logout</a>
+									</div>
+								</div>	
+							</li>
+						</ul>
+                        {% else %}
+						<ul class="dropdown-menu dropdown-user-account well">
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+                            <form method="POST" action="{% url "login_corredor" %}">
+                                {% csrf_token %}
+                                <div class="control-group">
+                                    <label class="control-label" for="inputEmail">Email</label>
+                                    <div class="controls">
+                                        <input type="text" name="inputEmail" id="inputEmail" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword">Password</label>
+                                    <div class="controls">
+                                        <input type="password" name="inputPassword" id="inputPassword" placeholder="Password">
+                                    </div>
+                                </div>
+                                <input class="btn btn-small" type="submit" value="Iniciar Sesión"/>
+                            </form>
+							<li class="account-info">
+								<div class="row-fluid">
+                                    <div class="button zocial span4 align-right">
+                                        <a class="btn-auth btn-facebook" href="{% url 'allaccess-login' 'facebook' %}">
+                                            Iniciar sesión con <b>Facebook</b>
+                                        </a>
+								    </div>
+								</div>									
+							</li>
+						</ul>
+                        {% endif %}
 
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/i/378 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+														
+					</li>
+					<!-- ./ dropdown user account -->
+				</ul>
+				
+				<!-- search form -->
+				<form class="navbar-search pull-right hidden-phone" action="">
+					<input type="text" class="search-query span4" placeholder="search...">
+				</form>
+				<!-- ./ search form -->
+			</div>
+		</div>
+		<!-- end header -->		
+		
+		<div id="left_layout">
+			<!-- main content -->
+			<div id="main_content" class="container-fluid">
+			
+				<!-- page heading -->
+				<div class="page-heading">
+				
+					<h2 class="page-title muted">
+						<i class="icon-dashboard"></i> Inicio 
+					</h2>
+					
+					<div class="page-info hidden-phone">
+						<ul class="stats">
+							<li>
+								<span class="large text-warning">2354</span>
+								<span class="mini muted">visitantes</span>
+							</li>
+							<li>
+								<span class="large text-info">4523</span>
+								<span class="mini muted">miembros</span>
+							</li>
+							<li>
+								<span class="large text-success">5673</span>
+								<span class="mini muted">plantas</span>
+							</li>
+							<li>
+								<span class="large text-error">15</span>
+								<span class="mini muted">centros</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- ./ page heading -->
+				
+				<ul class="breadcrumb breadcrumb-main">
+					<li class="text-info">Inicio</li>
+				</ul>
+				
+				<!-- post wrapper -->				
+				<div class="row-fluid">
+                    <div class="span12">
+					{% block content %}{% endblock %}
+				    </div>
+				</div>
+				<!-- ./ post wrapper -->
+			</div>
+			<!-- end main content -->
+			
+			<!-- sidebar -->
+			<ul id="sidebar" class="nav nav-pills nav-stacked">
+				<li class="avatar hidden-phone">
+					<a href="#">
+						<img src="{{ STATIC_URL }}images/100/06.png" />
+						<span>Geunevere Calista</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="/">
+						<i class="micon-screen"></i>
+						<span class="hidden-phone">Inicio</span>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="micon-gift"></i>
+						<span class="hidden-phone">Información</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="typography.html">
+								<i class="icon-large icon-underline"></i> Qué es un corredor biológico?
+							</a>
+						</li>
+                        <li>
+							<a href="tables.html">
+								<i class="icon-large icon-table"></i> Centros de Difusión
+							</a>
+						</li>
 
-  <title>{% block page_title %}{{ _("Your Site") }}{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}{% endblock %}">
-  <meta name="author" content="{% block meta_author %}{% endblock %}">
-
-  <!-- Mobile viewport optimized: h5bp.com/viewport -->
-  <meta name="viewport" content="width=device-width">
-
-  {% compress css %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
-  {% block css %}{% endblock %}
-  {% endcompress %}
-  <style>
-    body {
-      padding-top: 60px;
-      padding-bottom: 40px;
-    }
-  </style>
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-
-  <!-- All JavaScript at the bottom, except this Modernizr build.
-       Modernizr enables HTML5 elements & feature detects for optimal performance.
-       Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  {% compress js %}
-  <script src="{{ STATIC_URL }}js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-  {% endcompress %}
-</head>
-<body class="{% block body_class %}{% endblock %}">
-{% block body %}
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-  <![endif]-->
-  <header>
-
-  </header>
-
-  <div role="main" class="container">
-    {% block content %}{% endblock %}
-  </div>
-
-  <footer>
-    <p>&copy; Company 2013</p>
-  </footer>
-
-
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-
-  <!-- scripts concatenated and minified via django-compressor -->
-  {% compress js %}
-  <script src="{{ STATIC_URL }}js/libs/bootstrap.min.js"></script>
-  <script src="{{ STATIC_URL }}js/plugins.js"></script>
-  <script src="{{ STATIC_URL }}js/main.js"></script>
-  {% endcompress %}
-  <!-- end scripts -->
-
-  <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-       mathiasbynens.be/notes/async-analytics-snippet -->
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
-{% endblock %}
-</body>
+						<li>
+							<a href="tables.html">
+								<i class="icon-large icon-table"></i> Mariposas
+							</a>
+						</li>
+						<li>
+							<a href="buttons.html">
+								<i class="icon-large icon-th"></i> Aves
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="charts.html">
+						<i class="micon-stats-up"></i>
+						<span class="hidden-phone">Gráficos</span>
+					</a>
+				</li>
+				<li>
+					<a href="maps.html">
+						<i class="micon-location"></i>
+						<span class="hidden-phone">Blog</span>
+					</a>
+				</li>
+                <li>
+					<a href="maps.html">
+						<i class="micon-checkbox"></i>
+						<span class="hidden-phone">Encuestas</span>
+					</a>
+				</li>
+			</ul>
+			<!-- end sidebar -->
+		</div>
+		{% compress js %}
+    <script src="{{ STATIC_URL }}js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<!-- external api -->
+		<script src="http://maps.google.com/maps/api/js?v=3.5&sensor=false"></script>
+		
+		<!-- base -->
+		<script src="{{ STATIC_URL }}assets/js/jquery.js"></script>
+		<script src="{{ STATIC_URL }}assets/js/bootstrap.min.js"></script>
+		
+		<!-- addons -->
+		<script src="{{ STATIC_URL }}plugins/chart-plugins.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jquery-ui-slider.js"></script>
+		<script src="{{ STATIC_URL }}plugins/redactor/redactor.min.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jmapping/markermanager.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jmapping/StyledMarker.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jmapping/jquery.metadata.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jmapping/jquery.jmapping.min.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jquery.uniform.js"></script>
+		<script src="{{ STATIC_URL }}plugins/chosen.jquery.min.js"></script>
+		<script src="{{ STATIC_URL }}plugins/bootstrap-datepicker.js"></script>
+		<script src="{{ STATIC_URL }}plugins/jquery.timePicker.min.js"></script>
+				
+		<!-- plugins loader -->
+		<script src="{{ STATIC_URL }}js/loader.js"></script>
+    {% endcompress %}
+	</body>
 </html>

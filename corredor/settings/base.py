@@ -63,6 +63,15 @@ INSTALLED_APPS = (
     'base',
 
     # Local apps, referenced via appname
+    'allaccess',
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Default backend
+    'django.contrib.auth.backends.ModelBackend',
+    # Additional backend
+    'base.backends.EmailAuthBackEnd',
+    'allaccess.backends.AuthorizedServiceBackend',
 )
 
 # Place bcrypt first in the list, so it will be the default password hashing
@@ -298,6 +307,10 @@ LOGGING = {
         }
     }
 }
+
+LOGIN_URL = '/'
+
+LOGIN_REDIRECT_URL = '/'
 
 # Common Event Format logging parameters
 #CEF_PRODUCT = 'corredor'

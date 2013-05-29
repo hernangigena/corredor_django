@@ -163,7 +163,7 @@ class CodeAdmin(admin.ModelAdmin):
         return super(CodeAdmin, self).changelist_view(request, extra_context=None)
 
     def available(self, obj):
-        return "Si"
+        return "Si" if (obj.plant is None) else "No"
 
 
 admin.site.register(Code, CodeAdmin)

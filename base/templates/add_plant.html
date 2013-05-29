@@ -1,31 +1,90 @@
 {% extends "_layouts/base.html" %}
-
-{% block page_title %}Your Site - Home{% endblock %}
+{% block page_title %}Corredor Biologico - Home{% endblock %}
 {% block page_class %}home-page{% endblock %}
 {% block content %}
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkiu3Y17pKboVcGFC6Bez9QozcY9ebxpQ&sensor=false"></script>
-    <script src="{{ STATIC_URL }}js/add_plant.js"></script>
-    <div class="row">
-        <div class="well">
-            <form class="form-search" id="search-form">
-                <div class="input-append">
-                    <input id="address" type="text" class="input-xlarge search-query" placeholder="Busca tu direccion">
-                    <button type="submit" class="btn"><i class="icon-search"></i></button>
+
+	{% if not user.is_authenticated %}
+    <div class="span4">
+        <div class="well widget">
+            <div class="widget-header">
+                <h3 class="title">Cargá tus datos personales</h3>
+            </div>
+            <form name="User" action="" method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form.code.errors }}
+                {{ form.code.as_hidden }}
+                {{ form.lat.as_hidden }}
+                {{ form.lng.as_hidden }}
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                        <input type="text" name="email" id="inputEmail" placeholder="Email">
+                    </div>
+                    {{ form_user.email.errors }}
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputName">Nombre</label>
+                    <div class="controls">
+                        <input type="text" name="first_name" id="inputName" placeholder="Nombre">
+                    </div>
+                    {{ form_user.first_name.errors }}
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputApellido">Apellido</label>
+                    <div class="controls">
+                        <input type="text" name="last_name" id="inputApellido" placeholder="Apellido">
+                    </div>
+                    {{ form_user.last_name.errors }}
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword">Password</label>
+                    <div class="controls">
+                        <input type="password" name="password" id="inputPassword" placeholder="Password">
+                    </div>
+                    {{ form_user.password.errors }}
+                </div>
+                <div class="offset9 span2">
+                    <input class="btn btn-large" type="submit" value="Guardar"/>
                 </div>
             </form>
-
-            <div id="map-canvas"></div>
+         </div>
         </div>
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form.code.as_hidden }}
-            {{ form.lat.as_hidden }}
-            {{ form.lng.as_hidden }}
-            <div class="offset10 span2">
-                <input class="btn-large" type="submit" value="Guardar"/>
+    <div class="span8">
+    {% else %}
+    <div class="span12">
+    {% endif %}
+        <div class="well widget">
+            <div class="widget-header">
+                <h3 class="title">Buscá tu dirección</h3>
+                <div class="widget-nav">
+                    <form action="" id="search-form">
+                        <input id="address" type="text" class="input-xlarge search-query" placeholder="Dirección">
+                        <button type="submit" class="btn"><i class="icon-search"></i></button>
+                    </form>
+                </div>
             </div>
-        </form>
+            <div class="row-fluid">
+                    <div id="map-canvas" style="width:100%;height:300px" class="well widget map-wrapper">
+                    </div>
+            </div>
+        </div>
+            {% if user.is_authenticated %}
+            <form name="Plant" action="" method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form.code.errors }}
+                {{ form.code.as_hidden }}
+                {{ form.lat.as_hidden }}
+                {{ form.lng.as_hidden }}
+                <div class="offset9 span2">
+                    <input class="btn btn-large" type="submit" value="Guardar"/>
+                </div>
+            </form>
+            {% endif %}
+
     </div>
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkiu3Y17pKboVcGFC6Bez9QozcY9ebxpQ&sensor=false"></script>
+    <script src="{{ STATIC_URL }}js/add_plant.js"></script>
 {% endblock %}

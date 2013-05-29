@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^', include('debug_toolbar_user_panel.urls')),
     url(r'^bad/$', bad),
+    url(r'^accounts/', include('allaccess.urls')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
 )
 
 ## In DEBUG mode, serve media files through Django.

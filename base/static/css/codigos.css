@@ -1,0 +1,12 @@
+div.codes_block {
+  width: 100%;
+}
+
+div.code {
+  width: 30%;
+  height: 100px;
+  float: left;
+  padding: 30px;
+  margin: 10px;
+  border: 2px solid black;
+}
