@@ -1,0 +1,41 @@
+{% extends "fluent_blogs/entry_contents_base.html" %}
+{% load i18n %}
+
+{% block entry-header %}
+    <p class="meta uppercase large">
+        <span class="tags">
+            {% if comment_count %}
+                <a href="{{ object.get_absolute_url }}#comments" title="{{ object.title }}" class="text-info"><i class="icon-comments"></i> {{ comment_count }}</a>
+            {% else %}
+                {% if object.comments_are_open %}{# no comments are closed message here, only encourage to post #}
+                <a href="{{ comments_url }}" title="{{ object.title }}"><i class="icon-comments"></i></a>
+                {% endif %}
+            {% endif %}
+
+        </span>
+        <span class="date">{{ object.publication_date }}</span>
+    </p>
+    <a href="{{ object.get_absolute_url }}">
+        <h3>{{ object.title }}</h3>
+    </a>
+{% endblock %}
+
+{% block entry-body-contents %}
+    <img class="img-featured" src="http://lorempixel.com/600/300/people/1/">
+    <p>{{ object.contents.contentitems.get.text }}</p>
+
+    {% comment %}
+      To shorten the contents in the archive, use:
+      {% with object.html_content|truncatewords_html:100|safe as object_content %} #}
+    {% endcomment %}
+{% endblock %}
+
+{% block entry-footer-contents %}
+    {{ block.super }}
+
+    {# Archive typically gives short summary, whereas the details page displays the full set of comments #}
+    <p class="entry-meta">
+      {% if pingback_count %}<a href="{{ object.get_absolute_url }}#pingbacks" title="{{ object.title }}">{% blocktrans count pingback_count as pingback_count %}{{ pingback_count }} pingback{% plural %}{{ pingback_count }} pingbacks{% endblocktrans %}</a>{% endif %}
+      {% if trackback_count %}<a href="{{ object.get_absolute_url }}#trackbacks" title="{{ object.title }}">{% blocktrans count trackback_count as trackback_count %}{{ trackback_count }} trackback{% plural %}{{ trackback_count }} trackbacks{% endblocktrans %}</a>{% endif %}
+    </p>
+{% endblock %}
