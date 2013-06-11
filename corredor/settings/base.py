@@ -94,17 +94,17 @@ DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
 SITE_ID = 1
 
 SOUTH_MIGRATION_MODULES = {
-                               'allaccess': 'ignore',
-                               'fluent_blogs': 'ignore',
-                               'fluent_contents': 'ignore',
-                               'fluent_contents.plugins.text': 'ignore',
-                               'categories': 'ignore',
+#                               'allaccess': 'ignore',
+#                               'fluent_blogs': 'ignore',
+#                               'fluent_contents': 'ignore',
+#                               'fluent_contents.plugins.text': 'ignore',
+#                               'categories': 'ignore',
                                'categories.editor': 'ignore',
                                'django_wysiwyg': 'ignore',
                                'fluent_comments': 'ignore',
                                'django.contrib.comments': 'ignore',
-                               'taggit': 'ignore',
-                               'taggit_autocomplete_modified': 'ignore',
+#                               'taggit': 'ignore',
+#                               'taggit_autocomplete_modified': 'ignore',
                                'crispy_forms': 'ignore'
                            }
 

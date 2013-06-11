@@ -21,8 +21,8 @@
 {% endblock %}
 
 {% block entry-body-contents %}
-    <img class="img-featured" src="http://lorempixel.com/600/300/people/1/">
-    <p>{{ object.contents.contentitems.get.text }}</p>
+    <img class="img-featured" src="{{ object.custom_contents.0.Imagen.image.url }}">
+    <p>{{ object.custom_contents.0.Text.text }}</p>
 
     {% comment %}
       To shorten the contents in the archive, use:
