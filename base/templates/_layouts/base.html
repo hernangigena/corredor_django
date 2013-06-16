@@ -11,7 +11,7 @@
     {% compress css %}
 	<link href="{{ STATIC_URL }}assets/css/bootstrap.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}assets/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet">
     {% block css %}{% endblock %}
     {% endcompress %}
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -28,48 +28,48 @@
   js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=450741525018175";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-		
+
 		<!-- header -->
 		<div id="header" class="navbar">
 			<div class="navbar-inner">
 				<!-- company or app name -->
 				<a class="brand hidden-phone" href="index.html">Corredor Biologico</a>
-				
+
 				<!-- nav icons -->
 				<ul class="nav">
-				
+
 					<li class="visible-phone">
 						<a href="#"><i class="icon-large icon-search"></i></a>
 					</li>
-					
+
 					<li>
 						<a href="#">
 							<i class="icon-large icon-globe"></i>
 						</a>
 					</li>
-					
+
 					<li>
 						<a href="#">
 							<i class="icon-large icon-envelope"></i>
 						</a>
 					</li>
-					
+
 					<li>
 						<a href="#">
 							<i class="icon-large icon-cog"></i>
 						</a>
 					</li>
-					
+
 				</ul>
-				
+
 				<ul class="nav pull-right">
-					
+
 					<!-- dropdown user account -->
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="icon-large icon-user"></i>
 						</a>
-						
+
 					    {% if user.is_authenticated %}
 						<ul class="dropdown-menu dropdown-user-account">
                             <li class="account-img-container">
@@ -79,13 +79,13 @@
                                 <h3>{{ info.first_name }} {{ info.last_name }}</h3>
                                 <p>{{ info.location.name }}</p>
 							</li>
-							
+
 							<li class="account-footer">
 								<div class="row-fluid">
 									<div class="span4 align-right">
 										<a class="btn btn-small btn-danger btn-flat" href="{% url 'logout' %}">Logout</a>
 									</div>
-								</div>	
+								</div>
 							</li>
 						</ul>
                         {% else %}
@@ -116,16 +116,16 @@
                                             Iniciar sesión con <b>Facebook</b>
                                         </a>
 								    </div>
-								</div>									
+								</div>
 							</li>
 						</ul>
                         {% endif %}
 
-														
+
 					</li>
 					<!-- ./ dropdown user account -->
 				</ul>
-				
+
 				<!-- search form -->
 				<form class="navbar-search pull-right hidden-phone" action="">
 					<input type="text" class="search-query span4" placeholder="search...">
@@ -133,19 +133,19 @@
 				<!-- ./ search form -->
 			</div>
 		</div>
-		<!-- end header -->		
-		
+		<!-- end header -->
+
 		<div id="left_layout">
 			<!-- main content -->
 			<div id="main_content" class="container-fluid">
-			
+
 				<!-- page heading -->
 				<div class="page-heading">
-				
+
 					<h2 class="page-title muted">
-						<i class="icon-dashboard"></i> Inicio 
+						<i class="icon-dashboard"></i> Inicio
 					</h2>
-					
+
 					<div class="page-info hidden-phone">
 						<ul class="stats">
 							<li>
@@ -168,12 +168,12 @@
 					</div>
 				</div>
 				<!-- ./ page heading -->
-				
+
 				<ul class="breadcrumb breadcrumb-main">
 					<li class="text-info">Inicio</li>
 				</ul>
-				
-				<!-- post wrapper -->				
+
+				<!-- post wrapper -->
 				<div class="row-fluid">
                     <div class="span12">
 					{% block content %}{% endblock %}
@@ -182,7 +182,7 @@
 				<!-- ./ post wrapper -->
 			</div>
 			<!-- end main content -->
-			
+
 			<!-- sidebar -->
 			<ul id="sidebar" class="nav nav-pills nav-stacked">
 				<li class="avatar hidden-phone">
@@ -251,11 +251,11 @@
     <script src="{{ STATIC_URL }}js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<!-- external api -->
 		<script src="http://maps.google.com/maps/api/js?v=3.5&sensor=false"></script>
-		
+
 		<!-- base -->
 		<script src="{{ STATIC_URL }}assets/js/jquery.js"></script>
 		<script src="{{ STATIC_URL }}assets/js/bootstrap.min.js"></script>
-		
+
 		<!-- addons -->
 		<script src="{{ STATIC_URL }}plugins/chart-plugins.js"></script>
 		<script src="{{ STATIC_URL }}plugins/jquery-ui-slider.js"></script>
@@ -268,7 +268,7 @@
 		<script src="{{ STATIC_URL }}plugins/chosen.jquery.min.js"></script>
 		<script src="{{ STATIC_URL }}plugins/bootstrap-datepicker.js"></script>
 		<script src="{{ STATIC_URL }}plugins/jquery.timePicker.min.js"></script>
-				
+
 		<!-- plugins loader -->
 		<script src="{{ STATIC_URL }}js/loader.js"></script>
     {% endcompress %}

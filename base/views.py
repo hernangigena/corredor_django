@@ -9,13 +9,13 @@ import json
 from django.contrib.auth import authenticate, login
 from datetime import datetime
 from django.utils.timezone import utc
-from fluent_blogs.models import Entry
 #import pdb
 
 
 def home(request):
     context = {}
     if request.user.is_authenticated():
+
         try:
             access = request.user.accountaccess_set.all()[0]
         except IndexError:
@@ -32,14 +32,6 @@ def home(request):
                   "days": (datetime.utcnow().replace(tzinfo=utc) - plant.user.date_joined).days} for plant in plants]
 
     context['plants'] = json.dumps(plant_dict)
-    context['entries'] = Entry.objects.published()
-
-    for entry in context['entries']:
-        entry_dict = {}
-        for content in entry.contents.contentitems.all():
-            entry_dict[content.polymorphic_ctype.name] = content
-        entry.custom_contents = []
-        entry.custom_contents.append(entry_dict)
 
     return render(request, 'base/home.html', context)
 

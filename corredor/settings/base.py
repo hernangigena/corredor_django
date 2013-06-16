@@ -64,27 +64,6 @@ INSTALLED_APPS = (
 
     # Local apps, referenced via appname
     'allaccess',
-    # Blog engine
-    'fluent_blogs',
-
-    # The content plugins
-    'fluent_contents',
-    'fluent_contents.plugins.text',
-
-    # Support libs
-    'categories',
-    'categories.editor',
-    'django_wysiwyg',
-
-    # Optional commenting support
-
-    'fluent_comments',
-    'django.contrib.comments',
-
-    # Optional tagging
-    'taggit',
-    'taggit_autocomplete_modified',
-    'crispy_forms',
 )
 
 FLUENT_BLOGS_BASE_TEMPLATE = os.path.join(PROJECT_ROOT, "base/templates/fluent_blogs/base.html")
@@ -95,18 +74,7 @@ SITE_ID = 1
 
 SOUTH_MIGRATION_MODULES = {
 #                               'allaccess': 'ignore',
-#                               'fluent_blogs': 'ignore',
-#                               'fluent_contents': 'ignore',
-#                               'fluent_contents.plugins.text': 'ignore',
-#                               'categories': 'ignore',
-                               'categories.editor': 'ignore',
-                               'django_wysiwyg': 'ignore',
-                               'fluent_comments': 'ignore',
-                               'django.contrib.comments': 'ignore',
-#                               'taggit': 'ignore',
-#                               'taggit_autocomplete_modified': 'ignore',
-                               'crispy_forms': 'ignore'
-                           }
+                          }
 
 AUTHENTICATION_BACKENDS = (
     # Default backend

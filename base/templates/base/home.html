@@ -105,15 +105,6 @@
             </div>
             <!-- ./ widget header -->
             <div class="row-fluid">
-            {% for object in entries %}
-                    <div id="blog-entry-{{ object.pk }}" class="span6">
-                    {% include "fluent_blogs/entry_archive/item.html" %}
-                    </div>
-                {% if forloop.counter|divisibleby:2 %}
-                </div>
-                <div class="row-fluid">
-                {% endif %}
-            {% endfor %}
             </div>
         </div>
     </div>

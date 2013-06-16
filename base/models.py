@@ -2,20 +2,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from fluent_contents.models import ContentItem
-
-
-class ImageItem(ContentItem):
-    title = models.CharField("Title", max_length=200)
-    image = models.ImageField("Imagen", upload_to="blog_images")
-
-    class Meta:
-        verbose_name = "Imagen"
-        verbose_name_plural = "Imagenes"
-
-    def __unicode__(self):
-        return self.title
-
 
 class UrlQRCode(models.Model):
     url = models.URLField()
