@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.markup',
     'django.contrib.humanize',
+    'django.contrib.comments',
     'django.contrib.syndication',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
@@ -63,10 +64,12 @@ INSTALLED_APPS = (
     'base',
 
     # Local apps, referenced via appname
+    #'zinnia_bootstrap',
     'allaccess',
+    'tagging',
+    'mptt',
+    'zinnia',
 )
-
-FLUENT_BLOGS_BASE_TEMPLATE = os.path.join(PROJECT_ROOT, "base/templates/fluent_blogs/base.html")
 
 DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
 
@@ -177,6 +180,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.csrf',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    'zinnia.context_processors.version', # Optional
 ]
 
 TEMPLATE_DIRS = (

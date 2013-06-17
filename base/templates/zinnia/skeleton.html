@@ -1,0 +1,47 @@
+{% extends "_layouts/base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block css %}
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}zinnia/css/ie.css" />
+    <![endif]-->
+{% endblock %}
+
+{% block link %}{% endblock %}
+{% block script %}{% endblock %}
+
+{% block content %}
+    <div class="span12">
+      {% block slider %}{% endblock %}
+      <div class="row-fluid">
+	<div class="span8">
+		{% block content_blog %}
+		<div class="links">
+		  <h3>{% trans "Useful links" %}</h3>
+		  <ul>
+		    <li>
+		      <a href="{% url 'zinnia_entry_archive_index' %}" title="{% trans "Weblog index" %}">
+		        {% trans "Weblog index" %}
+		      </a>
+		    </li>
+		    <li>
+		      <a href="{% url 'zinnia_sitemap' %}" title="{% trans "Sitemap" %}">
+		        {% trans "Sitemap" %}
+		      </a>
+		    </li>
+		  </ul>
+		</div>
+		<div class="search">
+		  <h3>{% trans "Search" %}</h3>
+		  {% include "zinnia/tags/search_form.html" %}
+		</div>
+		{% endblock %}
+	</div>
+      	<div id="sidebar_blog" class="span4">
+      	  {% block sidebar_blog %}
+      	  {% endblock %}
+      	</div>
+      </div>
+    </div>
+{% endblock %}

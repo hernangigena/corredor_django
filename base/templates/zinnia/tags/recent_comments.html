@@ -1,0 +1,25 @@
+{% load i18n %}
+  {% for comment in comments %}
+
+{% with entry=comment.content_object %}
+<div class="media media-feed">
+        <a class="pull-left" href="#">
+            <img class="media-object" src="http://lorempixel.com/40/40/people/9/">
+        </a>
+        <div class="media-body">
+            <a href="#"><h4 class="media-heading">{{  comment.name }}</h4></a>
+            <p class="meta">
+                <span class="tags"><a href="{{ entry.get_absolute_url }}#comment-{{ comment.pk }}-by-{{ comment.user_name|slugify }}" class="text-warning" title="{% trans "Comment on" %} {{ entry.title }}">{{ entry.title }}</a></span>
+            </p>
+            <p class="excerpt">{{  comment.comment|linebreaks }}</p>
+        </div>
+</div>
+{% endwith %}
+
+  {% empty %}
+  <p>
+    {% trans "No comments yet." %}
+  </p>
+  {% endfor %}
+
+

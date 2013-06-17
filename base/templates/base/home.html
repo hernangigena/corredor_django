@@ -1,6 +1,12 @@
 {% extends "_layouts/base.html" %}
 {% block page_title %}Corredor Biologico - Home{% endblock %}
 {% block page_class %}home-page{% endblock %}
+{% load zinnia_tags i18n %}
+
+{% block breadcrumbs %}
+	<li class="text-info">Inicio</li>
+{% endblock %}
+
 {% block content %}
     
      <div class="span4">
@@ -21,11 +27,13 @@
             </dl>
        </div>
        <div class="well widget">
-            <div class="widget-header">
-                <h3 class="title">Ingresá tu Código!</h3>
-            </div>
-            <dl>
+            <dl class="dl-icon">
+		<dt>Ingresá tu Código!</dt>
                 <dd>
+		    <span class="icon-wrapper">
+                        <i class="icon-qrcode"></i>
+                    </span>
+
                     <p>Acercate a uno de los centros de difusión del proyecto, retirá tu planta, e ingresá el Código
                     que se encuentra en la maceta para poder ser parte del Corredor Biológico y convertir tu patio, 
                     terraza, patio o jardín en un Refugio de Fauna.</p>
@@ -56,30 +64,7 @@
             <div class="widget-header">
                 <h3 class="title">Últimos Comentarios</h3>
             </div>
-            <div class="media media-feed">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://lorempixel.com/40/40/people/9/">
-                </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Jorge</h4></a>
-                    <p class="meta">
-                        <span class="tags"><a href="#" class="text-warning">El coronillo esta creciendo!</a></span>
-                    </p>
-                    <p class="excerpt">No lo riegues mucho, basta con las lluvias</p>
-                </div>
-            </div>
-            <div class="media media-feed">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://lorempixel.com/40/40/people/6/">
-                </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Mercedes</h4></a>
-                    <p class="meta">
-                        <span class="tags"><a href="#" class="text-warning">Mariposas en Caballito</a></span>
-                    </p>
-                    <p class="excerpt">Que lindaaa! es una monarca.</p>
-                </div>
-            </div>
+	    {% get_recent_comments %}
         </div>
     </div>
 
@@ -104,8 +89,9 @@
                 </div>
             </div>
             <!-- ./ widget header -->
-            <div class="row-fluid">
-            </div>
+            
+		{% get_recent_entries %}
+            
         </div>
     </div>
         
