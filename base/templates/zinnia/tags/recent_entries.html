@@ -4,9 +4,9 @@
     <div class="span6">
 	<p class="meta uppercase large">
 		<span class="tags">
-			<a href="#" class="text-info"><i class="icon-comments"></i> 12</a>
+      <a href="#" class="text-info"><i class="icon-comments"></i> {{ entry.comment_count }}</a>
 		</span>
-		<span class="date">Nov 30, 2012</span>
+		<span class="date">{{ entry.creation_date|date:"DATE_FORMAT" }}</span>
 	</p>
 	<a href="{{ entry.get_absolute_url }}">
 		<h3>{{ entry.title }}</h3>

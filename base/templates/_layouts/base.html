@@ -43,11 +43,19 @@
 						<a href="#"><i class="icon-large icon-search"></i></a>
 					</li>
 
-					<li>
-						<a href="#">
-							<i class="icon-large icon-globe"></i>
-						</a>
+                    <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-large icon-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="typography.html">
+                                    <i class="icon-large icon-leaf"></i> Mis Plantas 
+                                </a>
+                            </li>
+                        </ul>
 					</li>
+
 
 					<li>
 						<a href="#">
@@ -112,7 +120,7 @@
                             </form>
 							<li class="account-info">
 								<div class="row-fluid">
-                                    <div class="button zocial span4 align-right">
+                                   '/new/dir/newname.ext' <div class="button zocial span4 align-right">
                                         <a class="btn-auth btn-facebook" href="{% url 'allaccess-login' 'facebook' %}">
                                             Iniciar sesión con <b>Facebook</b>
                                         </a>
@@ -200,7 +208,7 @@
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="micon-gift"></i>
+						<i class="micon-info"></i>
 						<span class="hidden-phone">Información</span>
 					</a>
 					<ul class="dropdown-menu">
@@ -225,24 +233,23 @@
 								<i class="icon-large icon-th"></i> Aves
 							</a>
 						</li>
+                        <li>
+                            <a href="charts.html">
+                                <i class="micon-stats-up"></i>Gráficos
+                            </a>
+                        </li>
 					</ul>
 				</li>
 				<li>
-					<a href="charts.html">
-						<i class="micon-stats-up"></i>
-						<span class="hidden-phone">Gráficos</span>
-					</a>
-				</li>
-				<li>
-					<a href="maps.html">
-						<i class="micon-location"></i>
+					<a href="/weblog">
+						<i class="micon-blogger"></i>
 						<span class="hidden-phone">Blog</span>
 					</a>
 				</li>
                 <li>
-					<a href="maps.html">
+					<a href="/tests">
 						<i class="micon-checkbox"></i>
-						<span class="hidden-phone">Encuestas</span>
+						<span class="hidden-phone">Tests</span>
 					</a>
 				</li>
 			</ul>

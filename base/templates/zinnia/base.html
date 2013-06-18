@@ -31,7 +31,7 @@
 	<div class="widget-header">
 		<h3 class="title">Search Form</h3>
 	</div>
-	<form class="form-search method="get" action="{% url 'zinnia_entry_search' %}">
+	<form class="form-search" method="get" action="{% url 'zinnia_entry_search' %}">
 	  <p>
 	    <input class="input-medium search-query" type="text" value="{% trans "Keywords..." %}" name="pattern" onfocus="this.value=''" />
 	    <button type="submit" class="btn btn-info">Search</button>
@@ -63,24 +63,20 @@
 	</div>
   	{% get_tag_cloud %}
 </div>
-<div id="widget-recents" class="well widget">
-	<div class="widget-header">
-		<h3 class="title">{% trans "Recent entries" %}</h3>
-	</div>
-  	{% get_recent_entries %}
-</div>
 <div id="widget-comments" class="well widget">
 	<div class="widget-header">
 		<h3 class="title">{% trans "Recent comments" %}</h3>
 	</div>
   	{% get_recent_comments %}
 </div>
+<!--
 <div id="widget-populars" class="well widget">
 	<div class="widget-header">
 		<h3 class="title">{% trans "Popular entries" %}</h3>
 	</div>
   	{% get_popular_entries %}
 </div>
+-->
 <div id="widget-archives" class="well widget">
 	<div class="widget-header">
 		<h3 class="title">{% trans "Archives" %}</h3>

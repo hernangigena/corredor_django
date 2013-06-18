@@ -23,10 +23,6 @@
         href="{% url 'zinnia_entry_discussion_feed' year month day object.slug %}" />
   <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of comments on" %} '{{ object.title }}'"
         href="{% url 'zinnia_entry_comment_feed' year month day object.slug %}" />
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of pingbacks on" %} '{{ object.title }}'"
-        href="{% url 'zinnia_entry_pingback_feed' year month day object.slug %}" />
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of trackbacks on" %} '{{ object.title }}'"
-        href="{% url 'zinnia_entry_trackback_feed' year month day object.slug %}" />
   {% endwith %}
 {% endblock %}
 
@@ -42,6 +38,7 @@
 <div class="entry-widgets">
   {% with next_entry=object.next_entry %}
   {% if next_entry %}
+  <div class="row-fluid">
   <div class="entry-next">
     <h3>{% trans "Next entry" %}</h3>
     <p>
@@ -50,10 +47,12 @@
       </a>
     </p>
   </div>
+  </div>
   {% endif %}
   {% endwith %}
   {% with previous_entry=object.previous_entry %}
   {% if previous_entry %}
+  <div class="row-fluid">
   <div class="entry-previous">
     <h3>{% trans "Previous entry" %}</h3>
     <p>
@@ -62,10 +61,12 @@
       </a>
     </p>
   </div>
+  </div>
   {% endif %}
   {% endwith %}
   {% with entry_related=object.related_published %}
   {% if entry_related %}
+  <div class="row-fluid">
   <div class="entry-related">
     <h3>{% trans "Related entries" %}</h3>
     <ul>
@@ -76,45 +77,48 @@
       {% endfor %}
     </ul>
   </div>
+  </div>
   {% endif %}
   {% endwith %}
+  <div class="row-fluid">
   <div class="entry-similar">
     <h3>{% trans "Similar entries" %}</h3>
     {% get_similar_entries %}
+  </div>
   </div>
 </div>
 {% endblock %}
 
 {% block entry-comments %}
-<div id="comments">
-  <h3>{% trans "Comments" %}</h3>
+<div class="row-fluid">
+<div id="comments" class="well widget">
+
+	<div class="widget-header">
+        <h3>{% trans "Comments" %}</h3>
+	</div>
   {% if object.comment_count %}
   {% with comment_list=object.comments %}
-  <ol id="comment-list">
+
+  <div id="comment-list">
     {% for comment in comment_list %}
-    <li id="comment-{{ comment.pk }}-by-{{ comment.user_name|slugify }}"
-        class="comment vcard {% cycle box1,box2 %}{% if comment.user %} authenticated-comment{% if comment.user.is_staff %} staff-comment{% endif %}{% if comment.user.is_superuser %} superuser-comment{% endif %}{% endif %}">
-      <img src="{% get_gravatar comment.email 60 "G" %}"
-           class="gravatar photo" alt="{{ comment.name }}" />
-      <p class="comment-info">
-	{% if comment.url %}
-	<a href="{{ comment.url }}" rel="external nofollow"
-           class="fn url">{{ comment.name }}</a>
-	{% else %}
-	<span class="fn">{{ comment.name }}</span>
-	{% endif %}
-	{% trans "on" %}
-        <abbr class="comment-published" title="{{ comment.submit_date|date:"c" }}">
-          {{ comment.submit_date|date:"SHORT_DATETIME_FORMAT" }}
-        </abbr>
-        <a href="#comment-{{ comment.pk }}-by-{{ comment.user_name|slugify }}"
-           id="c{{ comment.pk }}" class="anchor-link"
-           title="{% trans "Direct link to this comment" %}">#</a>
-      </p>
-      {{ comment.comment|linebreaks }}
-    </li>
+    <div class="media media-feed">
+        <a class="pull-left" href="#">
+            <img src="{% get_gravatar comment.email 60 "G" %}" class="gravatar photo" alt="{{ comment.name }}" />
+        </a>
+
+        <div class="media-body">
+            <a href="#"><h4 class="media-heading">{{  comment.name }}</h4></a>
+            <p class="meta">
+                <abbr class="comment-published" title="{{ comment.submit_date|date:"c" }}">
+                {{ comment.submit_date|date:"SHORT_DATETIME_FORMAT" }}
+                </abbr>
+            </p>
+            <p class="excerpt">{{  comment.comment|linebreaks }}</p>
+
+        </div>
+    </div>
     {% endfor %}
-  </ol>
+  </div>
   {% endwith %}
     {% if not object.comments_are_open %}
   <p>{% trans "Comments are closed." %}</p>
@@ -127,86 +131,18 @@
     {% endif %}
   {% endif %}
 </div>
-{% endblock %}
-
-{% block entry-pingbacks %}
-<div id="pingbacks">
-  <h3>{% trans "Pingbacks" %}</h3>
-  {% if object.pingback_count %}
-  {% with pingback_list=object.pingbacks %}
-  <ol id="pingback-list">
-    {% for pingback in pingback_list %}
-    <li id="pingback-{{ pingback.pk }}" class="pingback vcard {% cycle box1,box2 %}">
-      <p class="pingback-info">
-	<a href="{{ pingback.url }}" rel="external nofollow"
-           class="fn url org">{{ pingback.name }}</a>
-	{% trans "on" %}
-        <abbr class="pingback-published" title="{{ pingback.submit_date|date:"c" }}">
-          {{ pingback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
-        </abbr>
-        <a href="#pingback-{{ pingback.pk }}"
-           id="c{{ pingback.pk }}" class="anchor-link"
-           title="{% trans "Direct link to this pingback" %}">#</a>
-      </p>
-      <p class="pingback-content">
-	{{ pingback.comment }}
-      </p>
-    </li>
-    {% endfor %}
-  </ol>
-  {% endwith %}
-  {% endif %}
-  {% if object.pingbacks_are_open %}
-  <p>{% trans "Pingbacks are open." %}</p>
-  {% else %}
-  <p>{% trans "Pingbacks are closed." %}</p>
-  {% endif %}
 </div>
 {% endblock %}
 
-{% block entry-trackbacks %}
-{% if object.trackback_count or object.trackbacks_are_open %}
-<div id="trackbacks">
-  <h3>{% trans "Trackbacks" %}</h3>
-  {% if object.trackback_count %}
-  {% with trackback_list=object.trackbacks %}
-  <ol id="trackback-list">
-    {% for trackback in trackback_list %}
-    <li id="trackback-{{ trackback.pk }}" class="trackback vcard {% cycle box1,box2 %}">
-      <p class="trackback-info">
-	<a href="{{ trackback.url }}" rel="external nofollow"
-           class="fn url org">{{ trackback.name }}</a>
-	{% trans "on" %}
-        <abbr class="trackback-published" title="{{ trackback.submit_date|date:"c" }}">
-          {{ trackback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
-        </abbr>
-        <a href="#trackback-{{ trackback.pk }}"
-           id="c{{ trackback.pk }}" class="anchor-link"
-           title="{% trans "Direct link to this trackback" %}">#</a>
-      </p>
-      <p class="trackback-content">
-	{{ trackback.comment }}
-      </p>
-    </li>
-    {% endfor %}
-  </ol>
-  {% endwith %}
-  {% endif %}
-  {% if object.trackbacks_are_open %}
-  <p>
-    <a href="{% url 'zinnia_entry_trackback' object.pk %}" rel="trackback">
-      {% trans "Trackback URL" %}</a>
-  </p>
-  {% endif %}
-</div>
-{% endif %}
-{% endblock %}
-
+<div class="row-fluid">
+<div class="well widget">
 {% block entry-comments-form %}
 {% if object.comments_are_open %}
   {% render_comment_form for object %}
 {% endif %}
 {% endblock %}
+</div>
+</div>
 
 {% endblock %}
 

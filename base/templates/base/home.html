@@ -45,20 +45,6 @@
                 <button type="submit" class="btn btn-danger">Agregar</button>
             </form>
         </div>
-        <!-- widget -->
-        <div class="well widget" style="height:25px;">
-            <!-- widget header -->
-            <div class="widget-header">
-                <h3 class="title">Progreso del Corredor</h3>
-            </div>
-            <!-- ./ widget header -->
-            
-            <!-- widget content -->
-            <div class="progress mini progress-warning">
-                <div class="bar top_tooltip" style="width: 70%" title="70%"></div>
-            </div>
-            <!-- ./ widget content -->
-        </div>
         <div class="well widget">
             <!-- widget head<er -->
             <div class="widget-header">
@@ -69,6 +55,24 @@
     </div>
 
     <div class="span8">
+        {% if user.is_authenticated %}
+        <!-- widget -->
+        <div class="row-fluid">
+            <div class="well widget" style="height:25px;">
+                <!-- widget header -->
+                <div class="widget-header">
+                    <h3 class="title">Nivel de Conocimiento: 3</h3>
+                </div>
+                <!-- ./ widget header -->
+                
+                <!-- widget content -->
+                <div class="progress mini progress-warning">
+                    <div class="bar top_tooltip" style="width: 70%" title="70%"></div>
+                </div>
+                <!-- ./ widget content -->
+            </div>
+        </div>
+        {% endif %}
         <div class="well widget">
             <div class="widget-header">
                 <h3 class="title">Mapa del Corredor Biologico</h3>
