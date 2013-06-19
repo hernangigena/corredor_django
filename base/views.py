@@ -67,7 +67,10 @@ def add_plant(request, code=None):
         else:
             user = request.user
 
-        plant_dict = {"lat": request.POST["lat"], "lng": request.POST["lng"], "code": request.POST["code"], "user": user.pk}
+        plant_dict = {"lat": request.POST["lat"],
+                      "lng": request.POST["lng"],
+                      "code": request.POST["code"],
+                      "user": user.pk}
 
         form = PlantForm(plant_dict)
 
@@ -80,6 +83,12 @@ def add_plant(request, code=None):
 
     else:
         code = get_object_or_404(Code, code=code)
+        if not code.printed:
+            raise Exception("El codigo no fue impreso nunca")
+
+        if code.plant:
+            raise Exception("El codigo ya fue asignado a otra planta")
+
         form = PlantForm(initial={'code': code.pk})
         return render(request, 'add_plant.html', {"form": form})
 
