@@ -69,6 +69,10 @@ INSTALLED_APPS = (
     'tagging',
     'mptt',
     'zinnia',
+    'userena',
+    'guardian',
+    'easy_thumbnails',
+    'accounts'
 )
 
 DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
@@ -76,10 +80,12 @@ DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
 SITE_ID = 1
 
 SOUTH_MIGRATION_MODULES = {
-#                               'allaccess': 'ignore',
-                          }
+                           #'allaccess': 'ignore',
+                           }
 
 AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
     # Default backend
     'django.contrib.auth.backends.ModelBackend',
     # Additional backend
@@ -180,7 +186,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.csrf',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    'zinnia.context_processors.version', # Optional
+    'zinnia.context_processors.version'
 ]
 
 TEMPLATE_DIRS = (
@@ -227,6 +233,8 @@ DEBUG_TOOLBAR_PANELS = (
 
 # Specify a custom user model to use
 #AUTH_USER_MODEL = 'accounts.MyUser'
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 FILE_UPLOAD_PERMISSIONS = 0664
 
@@ -322,12 +330,18 @@ LOGGING = {
     }
 }
 
-LOGIN_URL = '/'
-
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 
 # Common Event Format logging parameters
 #CEF_PRODUCT = 'corredor'
 #CEF_VENDOR = 'Your Company'
 #CEF_VERSION = '0'
 #CEF_DEVICE_VERSION = '0'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'hernangigena@gmail.com'
+EMAIL_HOST_PASSWORD = 'stuarts32522'

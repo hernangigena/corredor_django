@@ -82,7 +82,7 @@
 					    {% if user.is_authenticated %}
 						<ul class="dropdown-menu dropdown-user-account">
                             <li class="account-img-container">
-								<img class="thumb account-img" src="{{ STATIC_URL }}images/100/07.png" />
+                            <img class="thumb account-img" src="{{ user.profile.get_mugshot_url}}" />
 							</li>
 							<li class="account-info">
                                 <h3>{{ info.first_name }} {{ info.last_name }}</h3>
@@ -102,8 +102,26 @@
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
-                            <form method="POST" action="{% url "login_corredor" %}">
+                            <form action="accounts/signin/" method="post">
                                 {% csrf_token %}
+                                <fieldset>
+                                    <legend>Ingresa</legend>
+                                    <p>
+                                    <label for="id_identification">Email o nombre de usuario</label>
+                                    <input class="required" id="id_identification" maxlength="75" name="identification" type="text">
+                                    </p>
+                                    <p>
+                                    <label for="id_password">Contraseña</label>
+                                    <input class="required" id="id_password" name="password" type="password">
+                                    </p>
+                                    <p class="checkbox">
+                                    <label for="id_remember_me"><input id="id_remember_me" name="remember_me" type="checkbox"> Recuérdame por un mes</label>
+                                    </p>
+                                </fieldset>
+                                <input type="submit" value="Ingresa">
+                                <p class="forgot-password"><a href="/accounts/password/reset/" title="¿Olvidaste tu contraseña?">¿Olvidaste tu contraseña?</a></p>
+                            </form>
+                            <!--<form method="POST" action="{% url "login_corredor" %}">
                                 <div class="control-group">
                                     <label class="control-label" for="inputEmail">Email</label>
                                     <div class="controls">
@@ -118,9 +136,10 @@
                                 </div>
                                 <input class="btn btn-small" type="submit" value="Iniciar Sesión"/>
                             </form>
+                            -->
 							<li class="account-info">
 								<div class="row-fluid">
-                                   '/new/dir/newname.ext' <div class="button zocial span4 align-right">
+                                    <div class="button zocial span4 align-right">
                                         <a class="btn-auth btn-facebook" href="{% url 'allaccess-login' 'facebook' %}">
                                             Iniciar sesión con <b>Facebook</b>
                                         </a>
@@ -258,7 +277,7 @@
 		{% compress js %}
     <script src="{{ STATIC_URL }}js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<!-- external api -->
-		<script src="http://maps.google.com/maps/api/js?v=3.5&sensor=false"></script>
+		<script src="http://maps.google.com/maps/api/js?v=3.5&libraries=places&sensor=false"></script>
 
 		<!-- base -->
 		<script src="{{ STATIC_URL }}assets/js/jquery.js"></script>

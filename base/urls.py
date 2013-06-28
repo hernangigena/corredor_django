@@ -9,4 +9,5 @@ urlpatterns = patterns('base.views',
                        url(r'^login_corredor$', 'login_corredor', name="login_corredor"),
                        url(r'^weblog/', include('zinnia.urls')),
                        url(r'^comments/', include('django.contrib.comments.urls')),
+                       url(r'^accounts/', include('userena.urls'))
                        )

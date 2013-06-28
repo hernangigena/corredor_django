@@ -9,7 +9,7 @@ import json
 from django.contrib.auth import authenticate, login
 from datetime import datetime
 from django.utils.timezone import utc
-#import pdb
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def home(request):
@@ -86,8 +86,11 @@ def add_plant(request, code=None):
         if not code.printed:
             raise Exception("El codigo no fue impreso nunca")
 
-        if code.plant:
-            raise Exception("El codigo ya fue asignado a otra planta")
+        try:
+            if code.plant:
+                raise Exception("El codigo ya fue asignado a otra planta")
+        except ObjectDoesNotExist:
+            pass
 
         form = PlantForm(initial={'code': code.pk})
         return render(request, 'add_plant.html', {"form": form})
